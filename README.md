@@ -2,7 +2,6 @@
 
 ## Contents
 
-0.  [Hello Ethernaut](#00---hello-ethernaut)
 1.  [Fallback](#01---fallback)
 2.  [Fallout](#02---fallout)
 3.  [Coinflip](#03---coinflip)
@@ -31,6 +30,20 @@
 26. [DoubleEntryPoint](#26---doubleentrypoint)
 
 ## 01 - Fallback
+
+The goal of the challenges is to claim ownership of the contract and reduce its balance to 0  
+
+In order to be the `owner` we have to send at least 1 wei to contract, which will tgrigger `receive()` function.
+
+```solidity
+receive() external payable {
+  require(msg.value > 0 && contributions[msg.sender] > 0);
+  owner = msg.sender;
+}
+```
+To pass `require()` statements, we first need to call `contribute()` with value < 0.001 ETH.
+
+After these steps, you become the owner of the contract and can call the "withdraw()" function.
 
 [Script](./scripts/01-Fallback.ts) | [Test](./test/01-Fallback.spec.ts)
 
