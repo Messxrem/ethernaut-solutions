@@ -71,7 +71,7 @@ bool side = coinFlip == 1 ? true : false;
 
 Generating random nubers using Solidity is a bad practice, we can create a contract function with the same random callculation, and use it to attack.
 
-[Attacker][./contracts/attackers/CoinFlipAttacker.sol] | [Script](./scripts/03-CoinFlip.ts) | [Test](./test/03-CoinFlip.spec.ts)
+[Attacker](./contracts/attackers/CoinFlipAttacker.sol) | [Script](./scripts/03-CoinFlip.ts) | [Test](./test/03-CoinFlip.spec.ts)
 
 ## 04 - Telephone
 
@@ -87,7 +87,7 @@ function changeOwner(address _owner) public {
 }
 ```
 
-[Attacker][./contracts/attackers/TelephoneAttacker.sol] | [Script](./scripts/04-Telephone.ts) | [Test](./test/04-Telephone.spec.ts)
+[Attacker](./contracts/attackers/TelephoneAttacker.sol) | [Script](./scripts/04-Telephone.ts) | [Test](./test/04-Telephone.spec.ts)
 
 ## 05 - Token
 
