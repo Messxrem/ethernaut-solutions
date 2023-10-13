@@ -69,7 +69,7 @@ uint256 coinFlip = blockValue.div(FACTOR);
 bool side = coinFlip == 1 ? true : false;
 ```
 
-Generating random nubers using Solidity is a bad practice, we can create a contract function with the same random callculation, and use it to attack.
+Generating random numbers using Solidity is a bad practice, we can create a contract function with the same random callculation, and use it to attack.
 
 [Attacker](./contracts/attackers/CoinFlipAttacker.sol) | [Script](./scripts/03-CoinFlip.ts) | [Test](./test/03-CoinFlip.spec.ts)
 
@@ -77,7 +77,7 @@ Generating random nubers using Solidity is a bad practice, we can create a contr
 
 The goal of the challenges is to claim ownership of the contract.
 
-In order to be the `owner` we have to call `changeOwner()` with the our account address as the argument and pass `tx.origin != msg.sender` statement which is true if you call the function from a smart contract. Then `msg.sender` will be the attacker contract address while `tx.origin` will be your account address:
+In order to be the `owner` we have to call `changeOwner()` with the our account address as the argument and pass `tx.origin != msg.sender` statement which is true if you call the function from a smart contract. Then `msg.sender` will be the attacker contract address, while `tx.origin` will be your account address:
 
 ```solidity
 function changeOwner(address _owner) public {
@@ -95,44 +95,89 @@ function changeOwner(address _owner) public {
 
 ## 06 - Delegation
 
-[Script](./scripts/06-Delegation.ts) | [Test](./test/06-Delegation.spec.ts)
+The goal of the challenges is to claim ownership of the contract.
+
+```typescript
+
+```
+
+[Attacker](./contracts/attackers/DelegateAttacker.sol) | [Script](./scripts/06-Delegation.ts) | [Test](./test/06-Delegation.spec.ts)
 
 ## 07 - Force
 
-[Script](./scripts/07-Force.ts) | [Test](./test/07-Force.spec.ts)
+The goal of the challenges is to make the balance of the contract greater than zero.
+
+In order to send ether to contract that does not realize `receive()` or `fallback()` we can use `selfdestruct()` function on attacker contract with victim address as a parameter. This function will send all contract balance to target address:
+
+```solidity
+constructor (address payable target) payable {
+        require(msg.value > 0);
+        selfdestruct(target);
+    }
+```
+
+[Attacker](./contracts/attackers/ForceAttacker.sol) | [Script](./scripts/07-Force.ts) | [Test](./test/07-Force.spec.ts)
 
 ## 08 - Vault
+
+The goal of the challenges is to unlock the vault
+
+The `private` visibility modifier only says that other contracts are not allowed to read it. Using ethers.js we can still read the storage variable:
+
+```solidity
+const password = await provider.getStorage(instanceAddress, 1)
+
+tx = await contract.connect(signer).unlock(password);
+await tx.wait();
+```
 
 [Script](./scripts/08-Vault.ts) | [Test](./test/08-Vault.spec.ts)
 
 ## 09 - King
 
-[Script](./scripts/09-King.ts) | [Test](./test/09-King.spec.ts)
+The goal of the challenges is to perform DOS (Denial of Service) attack.
+
+
+[Attacker](./contracts/attackers/KingAttacker.sol) | [Script](./scripts/09-King.ts) | [Test](./test/09-King.spec.ts)
 
 ## 10 - Re-entrancy
 
-[Script](./scripts/10-Reentrance.ts) | [Test](./test/10-Reentrance.spec.ts)
+The goal of the challenges is to
+
+[Attacker](./contracts/attackers/ReentranceAttacker.sol) | [Script](./scripts/10-Reentrance.ts) | [Test](./test/10-Reentrance.spec.ts)
 
 ## 11 - Elevator
 
-[Script](./scripts/11-Building.ts) | [Test](./test/11-Building.spec.ts)
+The goal of the challenges is to
+
+[Attacker](./contracts/attackers/ElevatorAttacker.sol) | [Script](./scripts/11-Building.ts) | [Test](./test/11-Building.spec.ts)
 
 ## 12 - Privacy
+
+The goal of the challenges is to
 
 [Script](./scripts/12-Privacy.ts) | [Test](./test/12-Privacy.spec.ts)
 
 ## 13 - Gatekeeper One
 
+The goal of the challenges is to
+
 [Script](./scripts/13-GatekeeperOne.ts) | [Test](./test/13-GatekeeperOne.spec.ts)
 
 ## 14 - Gatekeeper Two
+
+The goal of the challenges is to
 
 [Script](./scripts/14-GatekeeperTwo.ts) | [Test](./test/14-GatekeeperTwo.spec.ts)
 
 ## 15 - Naught Coin
 
+The goal of the challenges is to
+
 [Script](./scripts/15-NaughtCoin.ts) | [Test](./test/15-NaughtCoin.spec.ts)
 
 ## 16 - Preservation
 
-[Script](./scripts/16-Preservation.ts) | [Test](./test/16-Preservation.spec.ts)
+The goal of the challenges is to
+
+[Attacker](./contracts/attackers/PreservationAttacker.sol) | [Script](./scripts/16-Preservation.ts) | [Test](./test/16-Preservation.spec.ts)
