@@ -18,22 +18,12 @@
 14. [Gatekeeper Two](#14---gatekeepertwo)
 15. [Naught Coin](#15---naught-coin)
 16. [Preservation](#16---preservation)
-17. [Recovery](#17---recovery)
-18. [MagicNumber](#18---magicnumber)
-19. [AlienCodex](#19---aliencodex)
-20. [Denial](#20---denial)
-21. [Shop](#21---shop)
-22. [DEX](#22---dex)
-23. [DEX TWO](#23---dex-two)
-24. [Puzzle Wallet](#24---puzzle-wallet)
-25. [Motorbike](#25---Motorbike)
-26. [DoubleEntryPoint](#26---doubleentrypoint)
 
 ## 01 - Fallback
 
 The goal of the challenges is to claim ownership of the contract and reduce its balance to 0  
 
-In order to be the `owner` we have to send at least 1 wei to contract, which will tgrigger `receive()` function.
+In order to be the `owner` we have to send at least 1 wei to contract, which will tgrigger `receive()` function:
 
 ```solidity
 receive() external payable {
@@ -41,7 +31,15 @@ receive() external payable {
   owner = msg.sender;
 }
 ```
-To pass `require()` statements, we first need to call `contribute()` with value < 0.001 ETH.
+
+To pass `require()` statements, we first need to call `contribute()` with value < 0.001 ETH:
+
+```solidity
+function contribute() public payable {
+  require(msg.value < 0.001 ether);
+  contributions[msg.sender] += msg.value;
+}
+```
 
 After these steps, you become the owner of the contract and can call the "withdraw()" function.
 
@@ -49,15 +47,47 @@ After these steps, you become the owner of the contract and can call the "withdr
 
 ## 02 - Fallout
 
+The goal of the challenges is to claim ownership of the contract.
+
+In previous versions of Solidity there was no constructor function, so it had to be named with the same name as the contract.
+
+In this case there a mistake with function name. So in order to be the `owner` we have to call `Fal1out()` function.
+
 [Script](./scripts/02-Fallout.ts) | [Test](./test/02-Fallout.spec.ts)
 
 ## 03 - Coinflip
 
-[Script](./scripts/03-CoinFlip.ts) | [Test](./test/03-CoinFlip.spec.ts)
+The goal of the challenges is to guess the correct outcome 10 times in a row.
+
+In order to randomly choose a side, the contract uses the following logic:
+
+```solidity
+uint256 blockValue = uint256(blockhash(block.number.sub(1)));
+
+lastHash = blockValue;
+uint256 coinFlip = blockValue.div(FACTOR);
+bool side = coinFlip == 1 ? true : false;
+```
+
+Generating random nubers using Solidity is a bad practice, we can create a contract function with the same random callculation, and use it to attack.
+
+[Attacker][./contracts/attackers/CoinFlipAttacker.sol] | [Script](./scripts/03-CoinFlip.ts) | [Test](./test/03-CoinFlip.spec.ts)
 
 ## 04 - Telephone
 
-[Script](./scripts/04-Telephone.ts) | [Test](./test/04-Telephone.spec.ts)
+The goal of the challenges is to claim ownership of the contract.
+
+In order to be the `owner` we have to call `changeOwner()` with the our account address as the argument and pass `tx.origin != msg.sender` statement which is true if you call the function from a smart contract. Then `msg.sender` will be the attacker contract address while `tx.origin` will be your account address:
+
+```solidity
+function changeOwner(address _owner) public {
+  if (tx.origin != msg.sender) {
+    owner = _owner;
+  }
+}
+```
+
+[Attacker][./contracts/attackers/TelephoneAttacker.sol] | [Script](./scripts/04-Telephone.ts) | [Test](./test/04-Telephone.spec.ts)
 
 ## 05 - Token
 
