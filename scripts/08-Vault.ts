@@ -1,10 +1,7 @@
-import { ethers } from "ethers";
+import { ethers } from "hardhat";
 import { Vault__factory } from '../typechain-types';
+import { privateKey, rpc } from "../hardhat.config";
 
-// Task: get value of private variable
-
-const rpc = 'https://rpc.ankr.com/eth_goerli'
-const privateKey = ''
 const instanceAddress = ''
 
 const main = async () =>  {

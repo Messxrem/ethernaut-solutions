@@ -1,11 +1,10 @@
-import { ethers } from "ethers";
+import { ethers } from "hardhat";
 import * as fs from 'fs';
 import { NaughtCoin__factory, NaughtCoinAttacker__factory } from '../typechain-types';
+import { privateKey, rpc } from "../hardhat.config";
 
 // Task: getting your token balance to 0
 
-const rpc = 'https://rpc.ankr.com/eth_goerli'
-const privateKey = ''
 const instanceAddress = ''
 
 const main = async () =>  {

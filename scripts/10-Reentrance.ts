@@ -1,11 +1,10 @@
-import { ethers } from "ethers";
+import { ethers } from "hardhat";
 import * as fs from 'fs';
 import { Reentrance__factory, ReentranceAttacker__factory } from '../typechain-types';
+import { privateKey, rpc } from "../hardhat.config";
 
 // Task: steal all the funds from the contract
 
-const rpc = 'https://rpc.ankr.com/eth_goerli'
-const privateKey = ''
 const instanceAddress = ''
 
 const main = async () =>  {

@@ -1,12 +1,9 @@
-import { ethers } from "ethers";
+import { ethers } from "hardhat";
 import * as fs from 'fs';
 import { DelegateAttacker__factory, Delegate__factory } from '../typechain-types';
+import { privateKey, rpc } from "../hardhat.config";
 
-// Task: claim ownership of the contract
-
-const rpc = 'https://rpc.ankr.com/eth_goerli'
-const privateKey = ''
-const instanceAddress = ''
+const instanceAddress = '0x8d767033024Cb6d58D9E8f4B86A66c374FA04601'
 
 const main = async () =>  {
     const provider = new ethers.JsonRpcProvider(rpc);

@@ -1,4 +1,3 @@
-import { provider } from "starknet";
 import { loadFixture, ethers, expect } from "./setup";
 
 describe("Reentrance", function() {

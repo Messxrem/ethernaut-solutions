@@ -1,12 +1,7 @@
-import { ethers } from "ethers";
+import { ethers } from "hardhat";
 import { Fallback__factory } from '../typechain-types';
+import { privateKey, rpc } from "../hardhat.config";
 
-// Task:
-// 1) claim ownership of the contract
-// 2) reduce its balance to 0
-
-const rpc = 'https://rpc.ankr.com/eth_goerli'
-const privateKey = ''
 const instanceAddress = ''
 
 const main = async () =>  {
@@ -32,7 +27,7 @@ const main = async () =>  {
     await tx.wait();
 
     const owner = await contract.owner();
-    const contractBalance = await provider.getBalance(contract.target);
+    const contractBalance = await ethers.provider.getBalance(contract.target);
 
     console.log("Successfully hacked!");
     console.log("Contract owner:", owner);

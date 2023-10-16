@@ -1,11 +1,8 @@
-import { ethers } from "ethers";
+import { ethers } from "hardhat";
 import * as fs from 'fs';
 import { CoinFlipAttacker__factory, CoinFlip__factory } from '../typechain-types';
+import { privateKey, rpc } from "../hardhat.config";
 
-// Task: guess the correct outcome 10 times in a row
-
-const rpc = 'https://rpc.ankr.com/eth_goerli'
-const privateKey = ''
 const instanceAddress = ''
 
 const main = async () =>  {  

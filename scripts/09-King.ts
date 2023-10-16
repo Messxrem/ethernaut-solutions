@@ -1,12 +1,8 @@
-import { ethers } from "ethers";
+import { ethers } from "hardhat";
 import * as fs from 'fs';
 import { King__factory, KingAttacker__factory } from '../typechain-types';
+import { privateKey, rpc } from "../hardhat.config";
 
-
-// Task: break the game
-
-const rpc = 'https://rpc.ankr.com/eth_goerli'
-const privateKey = ''
 const instanceAddress = ''
 
 const main = async () =>  {

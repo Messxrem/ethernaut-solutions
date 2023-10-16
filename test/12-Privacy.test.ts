@@ -1,6 +1,4 @@
-import { BytesLike, isBytesLike } from "ethers";
 import { loadFixture, ethers, expect } from "./setup";
-import { Bytes } from "web3";
 
 describe("Privacy", function() {
 

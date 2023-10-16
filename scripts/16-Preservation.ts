@@ -1,11 +1,10 @@
-import { ethers } from "ethers";
+import { ethers } from "hardhat";
 import * as fs from 'fs';
 import { Preservation__factory, PreservationAttacker__factory } from '../typechain-types';
+import { privateKey, rpc } from "../hardhat.config";
 
 // Task: claim ownership of the contract
 
-const rpc = 'https://rpc.ankr.com/eth_goerli'
-const privateKey = ''
 const instanceAddress = ''
 
 const main = async () =>  {
@@ -38,7 +37,7 @@ const main = async () =>  {
     console.log("Attacket contract address", attackerAddress);
     console.log("Victim contract owner:", owner);
 }
-
+ 
 main().catch((error) => {
     console.error(error);
     process.exitCode = 1;
